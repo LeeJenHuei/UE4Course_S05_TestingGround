@@ -55,12 +55,16 @@ public:
     void SetPool(UActorPool* InPool);
 	
 private:
+    template<class T>
+    void RandomlyPlaceActors(TSubclassOf<T> ToSpawn, int MinSpawn = 1, int MaxSpawn = 1, float Radius = 500, float MinScale = 1, float MaxScale = 1);
+    
+    void PlaceActor(TSubclassOf<AActor> ToSpawn, const FSpawnPosition& SpawnPosition);
+    void PlaceActor(TSubclassOf<APawn> ToSpawn, const FSpawnPosition& SpawnPosition);
+
+    
     bool CanSpawnAtLocation(FVector Location, float Radius);
     bool FindEmptyLocation(FVector& OutLocation, float Radius);
-    void PlaceActor(TSubclassOf<AActor> ToSpawn, const FSpawnPosition& SpawnPosition);
-    void PlacePawn(TSubclassOf<AActor> ToSpawn, const FSpawnPosition& SpawnPosition);
     void PositionNavMeshBoundVolume();
-    TArray<FSpawnPosition> RandomSpawnPositions(int MinSpawn, int MaxSpawn, float Radius, float MinScale, float MaxScale);
     
     UActorPool* Pool = nullptr;
     AActor* NavMeshBoundVolume = nullptr;
